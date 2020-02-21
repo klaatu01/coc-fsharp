@@ -244,6 +244,8 @@ let private project(fsproj: FileInfo): ProjectInstance =
     let toolsVersion =
         if Directory.Exists(Path.Combine(sdk, "Current")) then "Current"
         else ToolLocationHelper.CurrentToolsVersion
+    dprintfn "ProjectCracker: project: sdk path = %s" sdk
+    dprintfn "ProjectCracker: project: toolsVersion = %s" toolsVersion
 
     use engine = new Microsoft.Build.Evaluation.ProjectCollection(globalProperties)
     engine.AddToolset(Toolset(toolsVersion, sdk, engine, String.Empty))

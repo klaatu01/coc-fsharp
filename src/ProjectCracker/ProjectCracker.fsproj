@@ -9,13 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Buildalyzer" Version="2.3.0" />
-    <!-- Fix warnings from Buildalyzer indirect refs to old versions -->
-    <PackageReference Include="System.Threading.ThreadPool" Version="4.3.0" />
-    <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-    <PackageReference Include="System.Security.Principal" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+    <PackageReference Include="Buildalyzer" Version="2.5.1" />
+    <PackageReference Include="NuGet.Frameworks" Version="5.4.0" />
+    <PackageReference Include="NuGet.Packaging" Version="5.4.0" />
+    <PackageReference Include="NuGet.ProjectModel" Version="5.4.0" />
   </ItemGroup>
   
   <ItemGroup>
