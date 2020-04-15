@@ -5,7 +5,7 @@
     "author": "Yatao Li",
     "license": "MIT",
     "icon": "Icon512.png",
-    "version": "0.1.63",
+    "version": "0.1.64",
     "publisher": "yatli",
     "repository": {
         "type": "git",
@@ -144,6 +144,7 @@
     },
     "extensionDependencies": [],
     "dependencies": {
+        "@types/follow-redirects": "^1.8.0",
         "coc-utils": "0.0.12",
         "vscode-jsonrpc": ">=4.0.0",
         "vscode-languageserver-protocol": ">=3.14.0"
