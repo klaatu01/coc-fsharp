@@ -674,6 +674,8 @@ type Server(client: ILanguageClient) as this =
                 let fsconfig = FSharpLanguageServerConfig.Parse(p.settings.ToString()).Fsharp
                 projects.ConditionalCompilationDefines <- List.ofArray fsconfig.Project.Define
                 projects.OtherCompilerFlags <- List.ofArray fsconfig.Project.OtherFlags
+                projects.AdditionalSourceFiles <- List.ofArray fsconfig.Project.AdditionalSourceFiles
+                projects.OverrideReferences <- List.ofArray fsconfig.Project.OverrideReferences
                 codelensShowReferences <- fsconfig.Codelens.References
                 showUnusedDeclarations <- fsconfig.Analysis.UnusedDeclaration
                 ProjectCracker.includeCompileBeforeItems <- fsconfig.Project.IncludeCompileBefore

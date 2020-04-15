@@ -10,7 +10,9 @@ type FSharpLanguageServerConfig = JsonProvider<"""
         "project": {
           "define": [ "USE_SOME_FLAG" ],
           "includeCompileBefore": false,
-          "otherFlags": [ "--some-compiler-flags" ]
+          "otherFlags": [ "--some-compiler-flags" ],
+          "overrideReferences": [ "-r:/home/yatli/foo/bar.dll" ],
+          "additionalSourceFiles": [ "foo.fs" ]
         },
         "codelens": {
           "references": true

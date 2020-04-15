@@ -271,41 +271,49 @@ type ProjectManager(checker: FSharpChecker) as this =
                         // Dotnet framework should be specified explicitly
                         yield "--noframework"
 
-                        dprintfn "--------- Project references -----------------"
+                        if this.OverrideReferences = [] then
+                          dprintfn "--------- Project references -----------------"
 
-                        // Reference output of other projects
-                        for r in cracked.projectReferences do 
-                            let options = cache.Get(r, analyzeLater)
-                            yield "-r:" + options.resolved.Value.target.FullName
-                            dprintfn "%s" options.resolved.Value.target.FullName
+                          // Reference output of other projects
+                          for r in cracked.projectReferences do 
+                              let options = cache.Get(r, analyzeLater)
+                              yield "-r:" + options.resolved.Value.target.FullName
+                              dprintfn "%s" options.resolved.Value.target.FullName
 
-                        dprintfn "---------- otherProjectReferences ----------------"
+                          dprintfn "---------- otherProjectReferences ----------------"
 
-                        // Reference target .dll for .csproj proejcts
-                        for r in cracked.otherProjectReferences do 
-                            yield "-r:" + r.FullName
-                            dprintfn "%s" r.FullName
+                          // Reference target .dll for .csproj proejcts
+                          for r in cracked.otherProjectReferences do 
+                              yield "-r:" + r.FullName
+                              dprintfn "%s" r.FullName
 
-                        dprintfn "----------- packageReferences ---------------"
+                          dprintfn "----------- packageReferences ---------------"
 
-                        // Reference packages
-                        for r in cracked.packageReferences do 
-                            yield "-r:" + r.FullName
-                            dprintfn "%s" r.FullName
+                          // Reference packages
+                          for r in cracked.packageReferences do 
+                              yield "-r:" + r.FullName
+                              dprintfn "%s" r.FullName
 
-                        dprintfn "----------- directReferences ---------------"
+                          dprintfn "----------- directReferences ---------------"
 
-                        // Direct dll references
-                        for r in cracked.directReferences do 
-                            yield "-r:" + r.FullName
-                            dprintfn "%s" r.FullName
+                          // Direct dll references
+                          for r in cracked.directReferences do 
+                              yield "-r:" + r.FullName
+                              dprintfn "%s" r.FullName
 
-                        dprintfn "----------- systemReferences ---------------"
+                          dprintfn "----------- systemReferences ---------------"
 
-                        // System references
-                        for r in cracked.systemReferences do 
-                            yield "-r:" + r
-                            dprintfn "%s" r
+                          // System references
+                          for r in cracked.systemReferences do 
+                              yield "-r:" + r
+                              dprintfn "%s" r
+                        else // references overridden
+                          dprintfn "--------- Overridden references -----------------"
+
+                          for r in this.OverrideReferences do 
+                              yield r
+                              dprintfn "%s" r
+                          
 
                         dprintfn "----------- ConditionalCompilationDefines ---------------"
 
@@ -332,7 +340,9 @@ type ProjectManager(checker: FSharpChecker) as this =
                 SourceFiles = 
                     [|
                         for f in cracked.sources do 
-                            yield f.FullName
+                          yield f.FullName
+                        for f in this.AdditionalSourceFiles do
+                          yield f
                     |]
                 Stamp = None 
                 UnresolvedReferences = None 
@@ -531,3 +541,5 @@ type ProjectManager(checker: FSharpChecker) as this =
 
     member val ConditionalCompilationDefines: string list = [] with get,set
     member val OtherCompilerFlags: string list = [] with get,set
+    member val OverrideReferences: string list = [] with get,set
+    member val AdditionalSourceFiles: string list = [] with get,set
