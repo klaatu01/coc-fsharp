@@ -271,7 +271,7 @@ type ProjectManager(checker: FSharpChecker) as this =
                         // Dotnet framework should be specified explicitly
                         yield "--noframework"
 
-                        if this.OverrideReferences = [] then
+                        if this.OverrideReferences.IsEmpty  then
                           dprintfn "--------- Project references -----------------"
 
                           // Reference output of other projects
