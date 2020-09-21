@@ -1,5 +1,0 @@
-<Project>
-    <PropertyGroup>
-        <BaseIntermediateOutputPath>foo/bar/obj</BaseIntermediateOutputPath>
-    </PropertyGroup>
-</Project>

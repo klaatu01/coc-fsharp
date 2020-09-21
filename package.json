@@ -1,11 +1,11 @@
 {
     "name": "coc-fsharp",
     "displayName": "F# Language Server for coc.nvim",
-    "description": "F# Language Support using FSharp Compiler Services",
+    "description": "F# Language Support using FSAC",
     "author": "Yatao Li",
     "license": "MIT",
     "icon": "Icon512.png",
-    "version": "0.1.65",
+    "version": "0.2.00",
     "publisher": "yatli",
     "repository": {
         "type": "git",
@@ -74,64 +74,107 @@
             "type": "object",
             "title": "FSharp configuration",
             "properties": {
-                "fsharp.trace.server": {
+                "FSharp.keywordsAutocomplete": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "provides keywords in autocomplete list"
+                },
+                "FSharp.ExternalAutocomplete": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": false,
+                    "description": "provides autocomplete for symbols from not opened namespaces/modules, insert open on accept, recommended default value: false"
+                },
+                "FSharp.Linter": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables FSharpLint integration, provides additional warnings and code action fixes, recommended default value: true"
+                },
+                "FSharp.UnionCaseStubGeneration": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables code action to generate pattern matching cases, recommended default value: true"
+                },
+                "FSharp.UnionCaseStubGenerationBody": {
                     "scope": "application",
                     "type": "string",
-                    "enum": [
-                        "off",
-                        "messages",
-                        "verbose"
-                    ],
-                    "default": "off",
-                    "description": "Traces the communication between VSCode and the language server."
+                    "default": "failwith \"Not Implemented\"",
+                    "description": "defines dummy body used by pattern matching generator, recommended default value: \"failwith \\\"Not Implemented\\\"\""
                 },
-                "fsharp.project.define": {
-                    "scope": "resource",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "default": [],
-                    "description": "Specifies macro definitions for a F# project."
+                "FSharp.RecordStubGeneration": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables code action to generate record stub, recommended default value: true"
                 },
-                "fsharp.project.otherFlags": {
-                    "scope": "resource",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "default": [],
-                    "description": "Specifies other fsc flags."
+                "FSharp.RecordStubGenerationBody": {
+                    "scope": "application",
+                    "type": "string",
+                    "default": "failwith \"Not Implemented\"",
+                    "description": "defines dummy body used by record stub generator, recommended default value: \"failwith \\\"Not Implemented\\\"\""
                 },
-                "fsharp.project.includeCompileBefore": {
-                    "scope": "resource",
-                    "type": "boolean",
+                "FSharp.InterfaceStubGeneration": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables code action to generate interface stub, recommended default value: true"
+                },
+                "FSharp.InterfaceStubGenerationObjectIdentifier": {
+                    "scope": "application",
+                    "type": "string",
+                    "default": "this",
+                    "description": "defines object identifier used by interface stub generator,recommended default value: \"this\""
+                },
+                "FSharp.InterfaceStubGenerationMethodBody": {
+                    "scope": "application",
+                    "type": "string",
+                    "default": "failwith \"Not Implemented\"",
+                    "description": "defines dummy body used by interface stub generator, recommended default value: \"failwith \\\"Not Implemented\\\"\""
+                },
+                "FSharp.UnusedOpensAnalyzer": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables unused open detections, recommended default value: true"
+                },
+                "FSharp.UnusedDeclarationsAnalyzer": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables unused symbol detection, recommended default value: true"
+                },
+                "FSharp.UseSdkScripts": {
+                    "scope": "application",
+                    "type": "bool",
                     "default": false,
-                    "description": "Treat <CompileBefore ../> items in the project as source files."
+                    "description": "enables the use of .Net Core SDKs for script file type-checking and evaluation, otherwise the .Net Framework reference lists will be used. Recommended default value: true. Current default value: false"
                 },
-                "fsharp.project.additionalSourceFiles": {
-                    "scope": "resource",
+                "FSharp.SimplifyNameAnalyzer": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": false,
+                    "description": "enables simplify name analyzer and remove redundant qualifier quick fix, recommended default value: false"
+                },
+                "FSharp.ResolveNamespaces": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables resolve namespace quick fix (add open if symbol is from not yet opened module/namespace), recommended default value: true"
+                },
+                "FSharp.EnableReferenceCodeLens": {
+                    "scope": "application",
+                    "type": "bool",
+                    "default": true,
+                    "description": "enables reference count code lenses, recommended default value: true if --background-service-enabled is used by default, false otherwise"
+                },
+                "FSharp.fsiExtraParameters": {
+                    "scope": "application",
                     "type": "array",
                     "default": [],
-                    "description": "Additional source files added to the project."
-                },
-                "fsharp.project.overrideReferences": {
-                    "scope": "resource",
-                    "type": "array",
-                    "default": [],
-                    "description": "When not empty, overrides the list of references in the project, and ignores results from project analysis. Require the full -r:/path/to/file.dll notation."
-                },
-                "fsharp.codelens.references": {
-                    "scope": "resource",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Display the number of references for the symbols. Uses more resources and may crash coc.nvim for very large projects."
-                },
-                "fsharp.analysis.unusedDeclaration": {
-                    "scope": "resource",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable diagnostic information about unused declarations."
+                    "description": "an array of additional runtime arguments that are passed to FSI. These are used when typechecking scripts to ensure that typechecking has the same context as your FSI instances. An example would be to set the following parameters to enable Preview features (like opening static classes) for typechecking."
                 }
             }
         },

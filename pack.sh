@@ -12,13 +12,4 @@ npm pack
 mkdir -p ./publish
 mkdir -p ./bin
 mv *.tgz ./publish/
-
-for i in $plat
-do
-    dotnet publish -f netcoreapp3.1 -c Release --self-contained \
-        -r $i src/FSharpLanguageServer -o ./bin/$i
-    pushd ./bin/$i
-    zip ../../publish/coc-fsharp-$i.zip ./*
-    popd
-done
  
