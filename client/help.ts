@@ -8,7 +8,7 @@ export default class Help {
     private static async getHelp() {
         var helpKey = await FSAC.f1help();
         if (helpKey == null) {return;}
-        helpKey = helpKey.replace("#ctor", "-ctor");
+        helpKey = helpKey.replace("#ctor", "-ctor").replace('`','-');
         let uri = Uri.parse (`https://docs.microsoft.com/en-us/dotnet/api/${helpKey}`);
         workspace.openResource(uri.toString());
     }
