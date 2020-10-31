@@ -5,7 +5,7 @@
     "author": "Yatao Li",
     "license": "MIT",
     "icon": "Icon512.png",
-    "version": "0.2.00",
+    "version": "0.2.1",
     "publisher": "yatli",
     "repository": {
         "type": "git",
@@ -76,25 +76,25 @@
             "properties": {
                 "FSharp.keywordsAutocomplete": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "provides keywords in autocomplete list"
                 },
                 "FSharp.ExternalAutocomplete": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": false,
                     "description": "provides autocomplete for symbols from not opened namespaces/modules, insert open on accept, recommended default value: false"
                 },
                 "FSharp.Linter": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables FSharpLint integration, provides additional warnings and code action fixes, recommended default value: true"
                 },
                 "FSharp.UnionCaseStubGeneration": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables code action to generate pattern matching cases, recommended default value: true"
                 },
@@ -106,7 +106,7 @@
                 },
                 "FSharp.RecordStubGeneration": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables code action to generate record stub, recommended default value: true"
                 },
@@ -118,7 +118,7 @@
                 },
                 "FSharp.InterfaceStubGeneration": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables code action to generate interface stub, recommended default value: true"
                 },
@@ -136,37 +136,37 @@
                 },
                 "FSharp.UnusedOpensAnalyzer": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables unused open detections, recommended default value: true"
                 },
                 "FSharp.UnusedDeclarationsAnalyzer": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables unused symbol detection, recommended default value: true"
                 },
                 "FSharp.UseSdkScripts": {
                     "scope": "application",
-                    "type": "bool",
-                    "default": false,
-                    "description": "enables the use of .Net Core SDKs for script file type-checking and evaluation, otherwise the .Net Framework reference lists will be used. Recommended default value: true. Current default value: false"
+                    "type": "boolean",
+                    "default": true,
+                    "description": "enables the use of .Net Core SDKs for script file type-checking and evaluation, otherwise the .Net Framework reference lists will be used. Recommended default value: true."
                 },
                 "FSharp.SimplifyNameAnalyzer": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": false,
                     "description": "enables simplify name analyzer and remove redundant qualifier quick fix, recommended default value: false"
                 },
                 "FSharp.ResolveNamespaces": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables resolve namespace quick fix (add open if symbol is from not yet opened module/namespace), recommended default value: true"
                 },
                 "FSharp.EnableReferenceCodeLens": {
                     "scope": "application",
-                    "type": "bool",
+                    "type": "boolean",
                     "default": true,
                     "description": "enables reference count code lenses, recommended default value: true if --background-service-enabled is used by default, false otherwise"
                 },
