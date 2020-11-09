@@ -1,4 +1,4 @@
-dotnet build -c Release
-cp ./src/FSharpLanguageServer/bin/Release/netcoreapp3.1/*.dll ~/.config/coc/extensions/coc-fsharp-data/server/
-cp ./src/FSharpLanguageServer/bin/Release/netcoreapp3.1/*.json ~/.config/coc/extensions/coc-fsharp-data/server/
+pkill node
+npm run compile
 cp ./package.json ~/.config/coc/extensions/node_modules/coc-fsharp/package.json
+cp ./out/client/* ~/.config/coc/extensions/node_modules/coc-fsharp/out/client/

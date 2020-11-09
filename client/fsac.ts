@@ -48,12 +48,21 @@ export default class FSAC {
         // The server is packaged as a .NET core assembly
         const lsprovider = new LanguageServerProvider(context, "FSAC server", fsac_pkgs, fsac_repo)
         const languageServerExe = await lsprovider.getLanguageServer()
+        const config = workspace.getConfiguration('FSharp')
+        let serverArgs = [languageServerExe, "--background-service-enabled"]
+
+        if (config.get<boolean>("server.trace")) {
+          serverArgs.push("--verbose")
+          context.logger.info("coc-fsharp: activating verbose logging")
+        }
 
         let serverOptions: ServerOptions = {
             command: "dotnet",
-            args: [languageServerExe, "--background-service-enabled"],
+            args: serverArgs,
             transport: TransportKind.stdio
         }
+
+        let server_outputchannel = workspace.createOutputChannel("FSAC")
 
         // Options to control the language client
         let clientOptions: LanguageClientOptions = {
@@ -77,7 +86,8 @@ export default class FSAC {
                 // if 1 .sln file was found, .sln file with most projects if multiple .sln files were found. It's designed to be used in clients 
                 // that doesn't allow to create custom UI for selecting workspaces.
                 AutomaticWorkspaceInit: true
-            }
+            },
+            outputChannel: server_outputchannel
         }
 
         // Create the language client and start the client.
