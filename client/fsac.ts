@@ -1,8 +1,9 @@
 'use strict';
 
 import {ExtensionContext, ServerOptions, TransportKind, LanguageClientOptions, workspace, LanguageClient, commands, Disposable} from "coc.nvim";
-import {ILanguageServerPackages, LanguageServerRepository, LanguageServerProvider, sleep} from "coc-utils";
+import {ILanguageServerPackages, LanguageServerRepository, LanguageServerProvider, sleep, DotnetResolver} from "coc-utils";
 import {TextDocumentIdentifier} from "vscode-languageserver-protocol";
+import path from 'path'
 
 const fsac_pkgs: ILanguageServerPackages = {
     "win-x64": {
@@ -16,7 +17,11 @@ const fsac_pkgs: ILanguageServerPackages = {
     "osx-x64": {
         executable: "fsautocomplete.dll",
         platformPath: "fsautocomplete.netcore.zip"
-    }
+    },
+    "linux-arm64": {
+        executable: "fsautocomplete.dll",
+        platformPath: "fsautocomplete.netcore.zip"
+    },
 }
 
 const fsac_repo: LanguageServerRepository = {
@@ -56,9 +61,14 @@ export default class FSAC {
           context.logger.info("coc-fsharp: activating verbose logging")
         }
 
+        let dotnet = await DotnetResolver.getDotnetInfo()
+        let dotnetRoot = path.join(dotnet.sdksInstalled[0].path, '..')
+
+        let env = Object.assign(process.env, {DOTNET_ROOT: dotnetRoot})
         let serverOptions: ServerOptions = {
             command: "dotnet",
             args: serverArgs,
+            options: { env: env, cwd: workspace.cwd },
             transport: TransportKind.stdio
         }
 
@@ -78,7 +88,7 @@ export default class FSAC {
                     workspace.createFileSystemWatcher('**/*.fsi'),
                     workspace.createFileSystemWatcher('**/*.fsx'),
                     workspace.createFileSystemWatcher('**/project.assets.json')
-                ]
+                ],
             },
             initializationOptions: {
                 // setting it to true will start Workspace Loading without need to run fsharp/workspacePeek and fsharp/workspaceLoad commands. 
