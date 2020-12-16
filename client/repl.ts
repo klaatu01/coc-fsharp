@@ -25,7 +25,7 @@ export default class Repl {
                 : []
 
             let term = await workspace.createTerminal({
-                name: `F# console`,
+                name: `FSI`,
                 shellPath: "dotnet",
                 cwd: root,
                 shellArgs: ['run'].concat(argStrs)
@@ -42,6 +42,6 @@ export default class Repl {
     }
 
     public static async activate(context: ExtensionContext) {
-        this.registerREPL(context, "F# REPL");
+        this.registerREPL(context, "FSI");
     }
 }
