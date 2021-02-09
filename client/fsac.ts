@@ -27,7 +27,7 @@ const fsac_pkgs: ILanguageServerPackages = {
 const fsac_repo: LanguageServerRepository = {
     kind: "github",
     repo: "fsharp/FsAutoComplete",
-    channel: "latest"
+    channel: "0.41.1"
 }
 
 
